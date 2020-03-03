@@ -11,7 +11,13 @@ module.exports = (msg) => {
 
   const eventList = []
   for (const key in msg.message.user.reminder) {
-    const { task, time } = msg.message.user.reminder[key]
+    const { task, time, job } = msg.message.user.reminder[key]
+    if (!job || !job.nextInvocation()) {
+      delete msg.message.user.reminder[key]
+
+      continue
+    }
+
     eventList.push(
       [
         `${task} - ${time}`,
