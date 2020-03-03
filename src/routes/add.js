@@ -2,7 +2,12 @@ const scheduler = require('node-schedule')
 const uuid = require('uuidv4')
 const chrono = require('chrono-node')
 
-const { BOT_ANSWER_CREATED, BOT_REMINDER_TEXT, BOT_ANSWER_PARSE_ERROR } = require('../config')
+const {
+  BOT_ANSWER_CREATED,
+  BOT_REMINDER_TEXT,
+  BOT_ANSWER_PARSE_ERROR,
+  BOT_ANSWER_PAST_EVENT
+} = require('../config')
 const { formatString } = require('../utils')
 
 module.exports = (msg) => {
@@ -13,6 +18,12 @@ module.exports = (msg) => {
 
   if (!cron) {
     msg.send(formatString(BOT_ANSWER_PARSE_ERROR, { time }))
+
+    return
+  }
+
+  if (cron < new Date()) {
+    msg.send(BOT_ANSWER_PAST_EVENT)
 
     return
   }

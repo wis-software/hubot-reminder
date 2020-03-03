@@ -3,6 +3,7 @@ module.exports = {
   BOT_REMINDER_TEXT: 'Hi. I remind you to **%{task}**',
   BOT_ANSWER_CREATED: 'Reminder accepted. Wait for him.',
   BOT_ANSWER_PARSE_ERROR: 'I can\'t parse received date: **%{time}**. Please try reformulating the date.',
+  BOT_ANSWER_PAST_EVENT: 'Sorry but it\'s impossible to create reminder in the past.',
   BOT_ANSWER_LIST: 'Here is a list of all your reminders. Click on the one you want to delete.',
   BOT_ANSWER_LIST_EMPTY: 'You have no scheduled reminders.',
   BOT_ANSWER_REMOVE: 'Reminder removed.',
