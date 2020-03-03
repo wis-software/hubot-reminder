@@ -10,8 +10,11 @@ module.exports = (msg) => {
     return
   }
 
-  job.job.cancel()
-  delete msg.message.user.reminder[jobID]
+  try {
+    job.job.cancel()
+  } finally {
+    delete msg.message.user.reminder[jobID]
+  }
 
   msg.send(BOT_ANSWER_REMOVE)
 }
