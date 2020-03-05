@@ -1,5 +1,6 @@
 const routines = require('hubot-routines')
 
+const storage = require('../storage')
 const { BOT_ANSWER_LIST, BOT_ANSWER_LIST_EMPTY } = require('../config')
 
 module.exports = (msg) => {
@@ -11,9 +12,12 @@ module.exports = (msg) => {
 
   const eventList = []
   for (const key in msg.message.user.reminder) {
-    const { task, time, job } = msg.message.user.reminder[key]
+    const { task, time } = msg.message.user.reminder[key]
+    const job = storage[key]
+
     if (!job || !job.nextInvocation()) {
       delete msg.message.user.reminder[key]
+      delete storage[key]
 
       continue
     }
