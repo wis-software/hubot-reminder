@@ -24,7 +24,7 @@ module.exports = (msg) => {
 
     eventList.push(
       [
-        `${task} - ${time}`,
+        `${task} - ${(new Date(time)).toUTCString()}`,
         `reminder remove ${key}`
       ]
     )

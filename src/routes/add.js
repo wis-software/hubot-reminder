@@ -39,7 +39,10 @@ module.exports = (msg) => {
   )
   const jobID = uuid.uuid()
 
-  msg.message.user.reminder[jobID] = { task, time }
+  msg.message.user.reminder[jobID] = {
+    time: cron.getTime(),
+    task
+  }
   storage[jobID] = job
 
   msg.send(BOT_ANSWER_CREATED)

@@ -8,8 +8,12 @@
 //   end group
 //
 
-module.exports = (robot) => {
-  robot.listenerMiddleware(
+const { restoreState } = require('./utils')
+
+module.exports = async (robot) => {
+  await restoreState(robot)
+
+  robot.receiveMiddleware(
     require('./middlewares/listener')
   )
 
