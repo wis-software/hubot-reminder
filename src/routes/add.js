@@ -2,6 +2,7 @@ const scheduler = require('node-schedule')
 const uuid = require('uuidv4')
 const chrono = require('chrono-node')
 
+const storage = require('../storage')
 const {
   BOT_ANSWER_CREATED,
   BOT_REMINDER_TEXT,
@@ -33,13 +34,16 @@ module.exports = (msg) => {
     () => {
       msg.send(formatString(BOT_REMINDER_TEXT, { task }))
       delete msg.message.user.reminder[jobID]
+      delete storage[jobID]
     }
   )
   const jobID = uuid.uuid()
 
   msg.message.user.reminder[jobID] = {
-    task, time, job
+    time: cron.getTime(),
+    task
   }
+  storage[jobID] = job
 
   msg.send(BOT_ANSWER_CREATED)
 }
